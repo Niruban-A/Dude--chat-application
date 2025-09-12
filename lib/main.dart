@@ -15,6 +15,6 @@ class Chatapp extends StatefulWidget {
 class _ChatappState extends State<Chatapp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(theme: ThemeData.dark(), home: HomePage());
+    return MaterialApp(theme: ThemeData.dark(), home: HomePage(),debugShowCheckedModeBanner: false,);
   }
 }
