@@ -24,12 +24,17 @@ class _LoginpageState extends State<Loginpage> {
               colorBlendMode: BlendMode.overlay,
               color: AppColors.lightGreen.withOpacity(0.5),
             ),
-            SizedBox(height: 30,),
-            ElevatedButton(onPressed: (){},style: OutlinedButton.styleFrom( iconAlignment:IconAlignment.start,),child: Text("Sign in with google"),)
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.red,
+              ),
+              child: Text("Sign in with google"),
+            ),
           ],
         ),
       ),
     );
-  
-}
+  }
 }
