@@ -80,7 +80,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn(
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.red,
               ),
-              child: Text("Sign in with google" ,style:GoogleFonts.lato(fontWeight: FontWeight.bold) ,),
+              child: Text("Sign in with google" ,style:GoogleFonts.lato(fontWeight: FontWeight.bold,fontSize: 5) ,),
             ),
           ],
         ),
