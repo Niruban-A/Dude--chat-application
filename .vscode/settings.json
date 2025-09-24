@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/niruban/my projects/tic_tac_toe/chat_application/linux"
+    "cmake.sourceDirectory": "/home/niruban/my projects/tic_tac_toe/chat_application/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
