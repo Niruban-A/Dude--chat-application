@@ -1,3 +1,4 @@
+node_modules
 flutter/ephemeral/
 
 # Visual Studio user-specific files.
@@ -5,6 +6,7 @@ flutter/ephemeral/
 *.user
 *.userosscache
 *.sln.docstates
+
 
 # Visual Studio build-related files.
 x64/

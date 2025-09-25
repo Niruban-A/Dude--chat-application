@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:chat_application/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,33 +17,19 @@ class Loginpage extends StatefulWidget {
 
 class _LoginpageState extends State<Loginpage> {
   User? user;
-  final String clientid="596493783703-5blvnt3egqq5kcrio3ctrbapnqbgnjgs.apps.googleusercontent.com";
-  final GoogleSignIn googleSignIn = GoogleSignIn.instance;
-  final GoogleSignIn signIn = GoogleSignIn.instance;
-  
-  // unawaited(
-  // signIn.initialize(clientId: clientId, serverClientId: serverClientId).then((
-  // _,
-  // ) {
-  // signIn.authenticationEvents
-  // .listen(_handleAuthenticationEvent)
-  // .onError(_handleAuthenticationError);
+  final String clientid =
+      "596493783703-5blvnt3egqq5kcrio3ctrbapnqbgnjgs.apps.googleusercontent.com";
+  //late final GoogleSignIn? googleSignIn=GoogleSignIn.instance;
 
-  // /// This example always uses the stream-based approach to determining
-  // /// which UI state to show, rather than using the future returned here,
-  // /// if any, to conditionally skip directly to the signed-in state.
-  // signIn.attemptLightweightAuthentication();
-  // }),
-  // );
   @override
   void initState() {
-    super.initState();
+
   }
 
   Future<void> signInWithGoogle() async {
     try {
       // Trigger the Google Sign-In flow
-      final GoogleSignInAccount? googleUser = await googleSignIn.authenticate();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       if (googleUser == null) {
         // User canceled the sign-in
@@ -55,6 +43,7 @@ class _LoginpageState extends State<Loginpage> {
       // Create a credential for Firebase
       final credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
       ); // Sign in to Firebase
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithCredential(credential);
@@ -65,6 +54,13 @@ class _LoginpageState extends State<Loginpage> {
     } catch (e) {
       print("Sign in failed: $e");
     }
+  }
+  Future<void> signout ()async{
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+    setState(() {
+      user=null;
+    });
   }
 
   @override
@@ -86,6 +82,33 @@ class _LoginpageState extends State<Loginpage> {
             ElevatedButton(
               onPressed: () async {
                 await signInWithGoogle();
+                if (user == null) {
+                  AlertDialog(actions: [Text("Signin failed")]);
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                        body: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+
+                              Text("signin successfull ${user?.email}"),
+                              SizedBox(height: 20,),
+                              IconButton(onPressed: ()async{
+                                await signout();
+                                Navigator.pop(context);
+                                
+                              }, icon: Icon(Icons.back_hand))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }
               },
               style: OutlinedButton.styleFrom(foregroundColor: Colors.red),
               child: Text(
